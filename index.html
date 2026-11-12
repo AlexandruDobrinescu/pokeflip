@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
+  <title>Pokemon Flipper</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="apple-touch-icon" href="icons/icon-192.png">
+</head>
+<body>
+  <svg class="icon-definitions" aria-hidden="true" focusable="false">
+    <symbol id="icon-pokedex" viewBox="0 0 24 24">
+      <path d="M5 8h15M4 16h15M10 3 8 21M17 3l-2 18"/>
+    </symbol>
+    <symbol id="icon-series" viewBox="0 0 24 24">
+      <path d="m12 3 9 5-9 5-9-5 9-5ZM3 12l9 5 9-5M3 16l9 5 9-5"/>
+    </symbol>
+    <symbol id="icon-health" viewBox="0 0 24 24">
+      <path d="M20.8 8.6c0 4.1-8.8 11-8.8 11s-8.8-6.9-8.8-11A4.6 4.6 0 0 1 12 6.1a4.6 4.6 0 0 1 8.8 2.5Z"/>
+    </symbol>
+    <symbol id="icon-height" viewBox="0 0 24 24">
+      <path d="M12 3v18M7 8l5-5 5 5M6 13h4M6 17h4M14 13h4M14 17h4"/>
+    </symbol>
+    <symbol id="icon-weight" viewBox="0 0 24 24">
+      <path d="M12 3v17M5 7h14M7 7l-4 8h8L7 7Zm10 0-4 8h8l-4-8ZM8 21h8"/>
+    </symbol>
+    <symbol id="icon-direction" viewBox="0 0 24 24">
+      <path d="M20 7v5h-5M4 17v-5h5M5.6 9A7 7 0 0 1 17 5l3 2M4 17l3 2a7 7 0 0 0 11.4-4"/>
+    </symbol>
+  </svg>
+  <div class="container">
+    <h1 class="title">POKÉMON FLIPPER</h1>
+    <div class="flipper-container" id="flipper" role="button" tabindex="0" aria-label="Flip the Pokémon coin" aria-pressed="false">
+      <div class="flipper-inner">
+        <div class="flipper-face flipper-front">
+          <div class="hex-border">
+            <div class="hex-inner">
+              <div class="face-content">
+                <div class="face-title">LARGE</div>
+                <div class="stat-icon stat-pokedex" role="img" aria-label="Pokedex number"><svg aria-hidden="true"><use href="#icon-pokedex"/></svg></div>
+                <div class="stat-icon stat-series" role="img" aria-label="Series number"><svg aria-hidden="true"><use href="#icon-series"/></svg></div>
+                <div class="stat-icon stat-health" role="img" aria-label="Health"><svg aria-hidden="true"><use href="#icon-health"/></svg></div>
+                <div class="stat-icon stat-height" role="img" aria-label="Height"><svg aria-hidden="true"><use href="#icon-height"/></svg></div>
+                <div class="stat-icon stat-weight" role="img" aria-label="Weight"><svg aria-hidden="true"><use href="#icon-weight"/></svg></div>
+                <div class="stat-icon stat-direction" role="img" aria-label="Change direction"><svg aria-hidden="true"><use href="#icon-direction"/></svg></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="flipper-face flipper-back">
+          <div class="hex-border">
+            <div class="hex-inner">
+              <div class="face-content">
+                <div class="face-title">SMALL</div>
+                <div class="stat-icon stat-pokedex" role="img" aria-label="Pokedex number"><svg aria-hidden="true"><use href="#icon-pokedex"/></svg></div>
+                <div class="stat-icon stat-series" role="img" aria-label="Series number"><svg aria-hidden="true"><use href="#icon-series"/></svg></div>
+                <div class="stat-icon stat-health" role="img" aria-label="Health"><svg aria-hidden="true"><use href="#icon-health"/></svg></div>
+                <div class="stat-icon stat-height" role="img" aria-label="Height"><svg aria-hidden="true"><use href="#icon-height"/></svg></div>
+                <div class="stat-icon stat-weight" role="img" aria-label="Weight"><svg aria-hidden="true"><use href="#icon-weight"/></svg></div>
+                <div class="stat-icon stat-direction" role="img" aria-label="Change direction"><svg aria-hidden="true"><use href="#icon-direction"/></svg></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <svg class="bottom-pointer" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+        <path d="M12 21V4M5 11l7-7 7 7"/>
+      </svg>
+    </div>
+    <p class="hint">Compare the bottom stat: Large wins higher; Small wins lower.</p>
+  </div>
+  <script src="js/app.js"></script>
+</body>
+</html>

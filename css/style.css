@@ -1,0 +1,342 @@
+/* ===== RESET & BASE ===== */
+*, *::before, *::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --hex-size: min(70vw, 70vh, 320px);
+  --pixel-color: #333;
+  --pixel-bg: #FFDE00;
+  --pixel-accent: #3B4CCA;
+  --pixel-red: #E3350E;
+  --pixel-green: #48A9A6;
+  --pixel-dark: #222;
+  --pixel-light: #FFF;
+  --flip-duration: 600ms;
+}
+
+body {
+  background: #2A2A3E;
+  font-family: 'Courier New', Courier, monospace;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  -webkit-tap-highlight-color: transparent;
+  user-select: none;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+
+.title {
+  color: var(--pixel-yellow, #FFDE00);
+  font-size: clamp(16px, 4vw, 24px);
+  text-align: center;
+  text-shadow: 2px 2px 0 #333;
+  letter-spacing: 2px;
+  font-weight: bold;
+}
+
+/* ===== FLIPPER CONTAINER ===== */
+.flipper-container {
+  position: relative;
+  width: var(--hex-size);
+  height: calc(var(--hex-size) * 1.1547);
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  --icon-counter-rotation: var(--coin-counter-rotation, 0deg);
+}
+
+.bottom-pointer {
+  position: absolute;
+  top: calc(100% + 6px);
+  left: 50%;
+  width: 28px;
+  height: 28px;
+  color: var(--pixel-yellow, #FFDE00);
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 3;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateX(-50%);
+  filter: drop-shadow(2px 2px 0 var(--pixel-dark));
+  transition: opacity 180ms ease, visibility 0s linear 180ms;
+  pointer-events: none;
+}
+
+.flipper-container.has-result {
+  margin-bottom: 34px;
+}
+
+.flipper-container.has-result .bottom-pointer {
+  opacity: 1;
+  visibility: visible;
+  transition: opacity 180ms ease;
+}
+
+.flipper-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transform: rotate(var(--coin-rotation, 0deg));
+  transition: transform var(--flip-duration) cubic-bezier(0.4, 0.0, 0.2, 1);
+}
+
+.flipper-face {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  opacity: 1;
+  visibility: visible;
+  transform: scale(1);
+  transition: opacity 240ms ease, transform 240ms ease, visibility 0s;
+}
+
+.flipper-back {
+  opacity: 0;
+  visibility: hidden;
+  transform: scale(0.94);
+  transition: opacity 240ms ease, transform 240ms ease, visibility 0s linear 240ms;
+}
+
+.flipper-container.flipped .flipper-front {
+  opacity: 0;
+  visibility: hidden;
+  transform: scale(0.94);
+  transition: opacity 240ms ease, transform 240ms ease, visibility 0s linear 240ms;
+}
+
+.flipper-container.flipped .flipper-back {
+  opacity: 1;
+  visibility: visible;
+  transform: scale(1);
+  transition: opacity 240ms ease, transform 240ms ease, visibility 0s;
+}
+
+/* ===== HEXAGON SHAPE (regular, all sides equal) ===== */
+.hex-border {
+  width: 100%;
+  height: 100%;
+  clip-path: polygon(
+    50% 0%,
+    100% 25%,
+    100% 75%,
+    50% 100%,
+    0% 75%,
+    0% 25%
+  );
+  background: var(--pixel-yellow, #FFDE00);
+  border: 4px solid var(--pixel-dark);
+  position: relative;
+}
+
+/* Pixel art border effect using box-shadow on pseudo-element */
+.hex-border::before {
+  content: '';
+  position: absolute;
+  inset: -4px;
+  clip-path: polygon(
+    50% 0%,
+    100% 25%,
+    100% 75%,
+    50% 100%,
+    0% 75%,
+    0% 25%
+  );
+  background: var(--pixel-dark);
+  z-index: -1;
+}
+
+.hex-inner {
+  width: 100%;
+  height: 100%;
+  clip-path: polygon(
+    50% 0%,
+    100% 25%,
+    100% 75%,
+    50% 100%,
+    0% 75%,
+    0% 25%
+  );
+  position: relative;
+  background: linear-gradient(135deg, #FFDE00 0%, #FFC800 100%);
+}
+
+.flipper-back .hex-inner {
+  background: linear-gradient(135deg, #A9D7FF 0%, #78B8F2 100%);
+}
+
+.face-content {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+}
+
+.icon-definitions {
+  position: absolute;
+  width: 0;
+  height: 0;
+  overflow: hidden;
+}
+
+.face-title {
+  top: 50%;
+  left: 50%;
+  position: absolute;
+  transform: translate(-50%, -50%) rotate(var(--icon-counter-rotation, 0deg));
+  text-align: center;
+  color: var(--pixel-dark);
+  font-size: clamp(18px, 5vw, 28px);
+  font-weight: bold;
+  letter-spacing: 2px;
+  text-shadow: 1px 1px 0 rgba(255,255,255,0.4);
+}
+
+.stat-icon {
+  position: absolute;
+  display: block;
+  width: clamp(24px, 12%, 40px);
+  aspect-ratio: 1;
+  transform: translate(-50%, -50%) rotate(var(--icon-angle, 0deg));
+  color: var(--pixel-dark);
+}
+
+.stat-icon svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.stat-pokedex {
+  top: 11%;
+  left: 50%;
+  --icon-angle: 0deg;
+}
+
+.stat-series {
+  top: 30.5%;
+  left: 89%;
+  --icon-angle: 60deg;
+}
+
+.stat-health {
+  top: 69.5%;
+  left: 89%;
+  --icon-angle: 300deg;
+}
+
+.stat-height {
+  top: 89%;
+  left: 50%;
+  --icon-angle: 180deg;
+}
+
+.stat-weight {
+  top: 69.5%;
+  left: 11%;
+  --icon-angle: 240deg;
+}
+
+.stat-direction {
+  top: 30.5%;
+  left: 11%;
+  --icon-angle: 300deg;
+}
+
+/* ===== HINT ===== */
+.hint {
+  color: #AAA;
+  font-size: clamp(10px, 2.5vw, 14px);
+  text-align: center;
+  opacity: 0.7;
+}
+
+/* ===== PIXEL ART DECORATIONS ===== */
+.hex-border::after {
+  content: '';
+  position: absolute;
+  inset: 8px;
+  clip-path: polygon(
+    50% 0%,
+    93.3% 25%,
+    93.3% 75%,
+    50% 100%,
+    6.7% 75%,
+    6.7% 25%
+  );
+  border: 2px dashed rgba(0,0,0,0.15);
+  pointer-events: none;
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 400px) {
+  :root {
+    --hex-size: min(75vw, 75vh, 280px);
+  }
+  
+  .container {
+    gap: 12px;
+  }
+}
+
+@media (min-width: 768px) {
+  :root {
+    --hex-size: 320px;
+  }
+}
+
+/* ===== INSTALL BANNER ===== */
+.install-banner {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #333;
+  color: #FFF;
+  padding: 12px 24px;
+  border-radius: 8px;
+  font-size: 14px;
+  display: none;
+  z-index: 100;
+  text-align: center;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+}
+
+.install-banner.visible {
+  display: block;
+  animation: slideUp 0.3s ease-out;
+}
+
+@keyframes slideUp {
+  from { transform: translateX(-50%) translateY(100px); opacity: 0; }
+  to { transform: translateX(-50%) translateY(0); opacity: 1; }
+}
+
+.install-btn {
+  background: var(--pixel-yellow, #FFDE00);
+  color: var(--pixel-dark);
+  border: none;
+  padding: 8px 16px;
+  margin-top: 8px;
+  font-weight: bold;
+  cursor: pointer;
+  border-radius: 4px;
+  font-family: inherit;
+}
+
